@@ -3,6 +3,7 @@ import warnings
 
 from django.conf import settings
 from django.utils import importlib
+from django.contrib.auth import get_user_model
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 import django
@@ -323,6 +324,8 @@ class Mommy(object):
             if isinstance(field, ForeignRelatedObjectsDescriptor):
                 one_to_many_keys[k] = attrs.pop(k)
         instance = self.model(**attrs)
+        if isinstance(instance, get_user_model()):
+            instance.set_password(instance.password)
         # m2m only works for persisted instances
         if _commit:
             instance.save()

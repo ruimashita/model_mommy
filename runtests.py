@@ -27,6 +27,7 @@ def configure_settings(options):
                 }
             },
             INSTALLED_APPS = (
+                'django.contrib.auth',
                 'django.contrib.contenttypes',
                 'test.generic',
                 'test.ambiguous',
